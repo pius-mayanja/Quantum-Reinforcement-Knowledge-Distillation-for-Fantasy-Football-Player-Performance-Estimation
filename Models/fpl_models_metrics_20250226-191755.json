@@ -1,0 +1,50 @@
+{
+    "random_forest": {
+        "model_name": "Random Forest",
+        "accuracy": 0.9605263157894737,
+        "auc": 0.9838961038961039,
+        "confusion_matrix": [
+            [
+                71,
+                4
+            ],
+            [
+                2,
+                75
+            ]
+        ],
+        "classification_report": "              precision    recall  f1-score   support\n\n           0       0.97      0.95      0.96        75\n           1       0.95      0.97      0.96        77\n\n    accuracy                           0.96       152\n   macro avg       0.96      0.96      0.96       152\nweighted avg       0.96      0.96      0.96       152\n"
+    },
+    "decision_tree": {
+        "model_name": "Decision Tree",
+        "accuracy": 0.9605263157894737,
+        "auc": 0.9825108225108224,
+        "confusion_matrix": [
+            [
+                71,
+                4
+            ],
+            [
+                2,
+                75
+            ]
+        ],
+        "classification_report": "              precision    recall  f1-score   support\n\n           0       0.97      0.95      0.96        75\n           1       0.95      0.97      0.96        77\n\n    accuracy                           0.96       152\n   macro avg       0.96      0.96      0.96       152\nweighted avg       0.96      0.96      0.96       152\n"
+    },
+    "quantum_dt": {
+        "model_name": "Quantum-Distilled Decision Tree",
+        "accuracy": 0.9605263157894737,
+        "auc": 0.983030303030303,
+        "confusion_matrix": [
+            [
+                71,
+                4
+            ],
+            [
+                2,
+                75
+            ]
+        ],
+        "classification_report": "              precision    recall  f1-score   support\n\n           0       0.97      0.95      0.96        75\n           1       0.95      0.97      0.96        77\n\n    accuracy                           0.96       152\n   macro avg       0.96      0.96      0.96       152\nweighted avg       0.96      0.96      0.96       152\n"
+    }
+}

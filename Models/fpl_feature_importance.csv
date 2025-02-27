@@ -1,0 +1,4 @@
+Run,goals_scored,minutes,clean_sheets,bps,minutes_influence,bonus,influence,selected_by_percent,assists,goal_assist_interaction,creativity,ict_index,red_cards,now_cost,goals_conceded,yellow_cards,threat,file
+Run 1,0.161,0.156,0.101,0.091,0.081,0.072,0.066,0.064,0.06,0.038,0.035,0.03,0.015,0.011,0.011,0.008,0.001,feature_importance_20250225-210751.json
+Run 2,0.158,0.103,0.109,0.136,0.073,0.08,0.071,0.062,0.091,0.046,0.0001,0.006,0.009,0.002,0.006,0.016,0.031,feature_importance_20250226-112508.json
+Run 3,0.178,0.093,0.13,0.115,0.05,0.09,0.076,0.041,0.088,0.02,0.023,0.042,0.012,0.012,0.004,0.004,0.022,feature_importance_20250226-141731.json
