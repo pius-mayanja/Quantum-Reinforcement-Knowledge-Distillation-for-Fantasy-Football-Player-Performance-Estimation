@@ -1,6 +1,7 @@
 import json
 import os
-from tabulate import tabulate
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # Directory containing the JSON metrics files
 metrics_directory = "./"
@@ -14,39 +15,50 @@ all_metrics = []
 # Read metrics from each JSON file
 for json_file in json_files:
     file_path = os.path.join(metrics_directory, json_file)
-    with open(file_path, 'r') as f:
-        try:
+    try:
+        with open(file_path, 'r') as f:
             metrics = json.load(f)
-            metrics['File'] = json_file  # Add filename to metrics
+            metrics['File'] = os.path.splitext(json_file)[0]  # Remove .json extension
             all_metrics.append(metrics)
-        except json.JSONDecodeError as e:
-            print(f"Error decoding JSON in {json_file}: {e}")
+    except json.JSONDecodeError as e:
+        print(f"Error decoding JSON in {json_file}: {e}")
 
-# Prepare and format data for tabulate
+# Prepare and format data for saving
 if all_metrics:
-    # Get all possible keys across files to ensure consistency
-    headers = sorted(set().union(*[metrics.keys() for metrics in all_metrics]))
-    
-    # Ensure order: 'File' comes first, then other metrics
-    headers = ['File'] + [h for h in headers if h != 'File']
+    # Convert to Pandas DataFrame
+    df = pd.DataFrame(all_metrics)
 
-    table_data = []
-    for metrics in all_metrics:
-        row = []
-        for header in headers:
-            value = metrics.get(header, "-")
-            if isinstance(value, (int, float)):
-                value = f"{value:,.2f}"  # Format numbers
-            row.append(value)
-        table_data.append(row)
+    # Move 'File' column to the front if it exists
+    if 'File' in df.columns:
+        cols = ['File'] + [col for col in df.columns if col != 'File']
+        df = df[cols]
 
-    # Sort data by filename
-    table_data.sort(key=lambda x: x[0])
+    # Format numeric values to 2 decimal places
+    for col in df.select_dtypes(include=['float64', 'int64']).columns:
+        df[col] = df[col].map(lambda x: f"{x:.2f}" if pd.notnull(x) else "-")
 
-    # Print the table
-    print(tabulate(table_data, headers=headers, tablefmt="psql"))
-    print(f"\nTotal metrics collected: {len(all_metrics)}")
+    # Save as an image
+    fig, ax = plt.subplots(figsize=(12, 5))
+    ax.axis('tight')
+    ax.axis('off')
+    table = ax.table(cellText=df.values, colLabels=df.columns, cellLoc='center', loc='center')
+
+    # Adjust table appearance
+    table.auto_set_font_size(False)
+    table.set_fontsize(10)
+    table.auto_set_column_width(col=list(range(len(df.columns))))  # Adjust column width
+
+    # Define desktop path
+    desktop_path = os.path.join(os.path.expanduser("~"), "Desktop")
+    image_path = os.path.join(desktop_path, "metrics_table.png")
+
+    plt.savefig(image_path, bbox_inches='tight', dpi=300)
+
+    print(f"\n✅ Table saved successfully as an image:\n🖼️ {image_path}")
+
 else:
     print("No metrics found.")
+
+
 
 
