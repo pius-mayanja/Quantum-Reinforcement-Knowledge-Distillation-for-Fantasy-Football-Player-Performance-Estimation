@@ -13,7 +13,6 @@ import json
 
 # Load dataset
 data = pd.read_csv("fpl_players.csv")
-print("Dataset loaded successfully.")
 
 # Preprocessing
 data.dropna(inplace=True)
